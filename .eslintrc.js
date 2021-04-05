@@ -1,3 +1,4 @@
+/*eslint-disable */
 module.exports = {
   env: {
     browser: true,
@@ -5,13 +6,16 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    "plugin:cypress/recommended",
     'wikimedia/client'
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    require: true
-  },
+    require: true,
+    cy: true,
+    node: true
+},
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
