@@ -55,7 +55,6 @@ describe('Testing Thai version for Mobileview', () => {
         cy.getCardImage().should('be.visible')
         cy.getCardTitleThai().should('be.visible')
         cy.getCardCloseButton().should('be.visible')
-        cy.get('body > div.wp-popup > div > div.wikipediapreview-body > div > div > div').should('be.visible')
         cy.getReadMore().should('be.visible').should('have.text', 'อ่านเพิ่มเติมบนวิกิพีเดีย').click({force:true})  
         cy.getCardCloseButton().click()
         cy.getPopupCard().should('not.be.visible')
