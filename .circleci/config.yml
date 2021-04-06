@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Prepare
           command: npm install
-       - run:
+      - run:
           name: Run Cypress Tests
           command: /
              npm run cypress:run
