@@ -1,64 +1,56 @@
 version: 2.1
+
 jobs:
   build:
+    working_directory: ~/tmp
     docker:
-      - image: circleci/node:12.0-browsers
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "e3:56:4b:3d:1c:58:a6:f9:7d:24:0a:90:01:77:aa:fb"
       - checkout
-      - run:
-          name: Prepare
-          command: npm install
-      - run:
-          name: Run Cypress Tests
-          command: npm run cypress:run
-      - run:
-          name: Build
-          command: npm run build
-      - run:
-          name: Unit Test (with coverage)
-          command: npm run coverage
-      - run:
-          name: Build Storybook
-          command: npm run build-storybook
-      - run:
-          name: Prepare demo
-          command: ./scripts/demo.sh
-      - persist_to_workspace:
-          root: .
+      - run: pwd
+      - run: ls
+      - restore_cache:
+          keys:
+            - 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
+            - 'v2-deps-{{ .Branch }}-'
+            - v2-deps-
+      - run: npm ci
+      - save_cache:
+          key: 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
           paths:
-            - ./demo
-            - ./storybook-static
-  update-demos:
+            - ~/.npm
+            - ~/.cache
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache
+            - tmp
+  test:
+    working_directory: ~/tmp
     docker:
-      - image: node:8.10.0
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "e3:56:4b:3d:1c:58:a6:f9:7d:24:0a:90:01:77:aa:fb"
-      - checkout
       - attach_workspace:
-          at: .
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration
       - run:
-          name: Prepare
-          command: |
-            npm install -g --silent gh-pages
-            git config user.email "ci-build@wikimedia.org"
-            git config user.name "ci-build"
-      - run:
-          name: Deploy demo
-          command: |
-            gh-pages --dist . -m "Update demo [ci skip]"
+          name: Running cypress tests
+          command: npm cypress:run
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
 workflows:
-  version: 2
-  build:
+  version: 2.1
+  build_and_test:
     jobs:
       - build
-      - update-demos:
+      - test:
           requires:
             - build
-          filters:
-            branches:
-              only: main
