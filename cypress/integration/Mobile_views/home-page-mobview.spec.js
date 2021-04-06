@@ -74,12 +74,4 @@ describe( 'Testing HomePage for Mobileview', () => {
 		cy.getFooterContent().should( 'be.visible' )
 	} )
 
-	// it('Check Article Info',()=>{
-	//   cy.get('body > div.footer > p > font > font').should('be.visible')
-	// })
-
-	// it('Check View Source',()=>{
-	//   cy.get('body > div.footer > p > a > font > font').should('be.visible').click()
-	// })
-
 } )
