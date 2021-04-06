@@ -8,7 +8,7 @@ describe('Testing Thai version for Mobileview', () => {
     })
 
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/thai.html').url().should('include', '/thai.html')  
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/thai.html').url().should('include', '/thai.html')  
     })
 
     it('Check Header', () => {

@@ -4,7 +4,7 @@
 describe('Testing Hindi version', () => {
     
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/hindi.html').url().should('include', '/hindi.html') 
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/hindi.html').url().should('include', '/hindi.html') 
     })
 
     it('Check Header', () => {

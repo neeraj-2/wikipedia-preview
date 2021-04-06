@@ -4,7 +4,7 @@
 describe( 'Testing Arabic version', () => {
 
 	it( 'Check URL', () => {
-		cy.visit( 'http://localhost:8080/articles/arabic.html' ).url().should( 'include', '/arabic.html' )
+		cy.visit( 'https://wikimedia.github.io/wikipedia-preview/demo//articles/arabic.html' ).url().should( 'include', '/arabic.html' )
 	} )
 
 	it( 'Check Header', () => {
@@ -48,7 +48,7 @@ describe( 'Testing Arabic version', () => {
 	it( 'Check Span مصر', () => {
 		cy.get( 'body > div.container > div.content > p:nth-child(1) > span:nth-child(2)' ).should( 'have.text', 'مصر' ).click( { force: true } )
 		cy.getPopupCard().should( 'be.visible' )
-		cy.getCardImage().should( 'be.visible' )
+		cy.get('body > div.wp-popup > div > div.wikipediapreview-header > div.wikipediapreview-header-image').should( 'be.visible' )
 		cy.getCardTitleArabic().should( 'be.visible' )
 		cy.getCardCloseButton().should( 'be.visible' )
 		cy.getCardFooter().should( 'have.text', 'مواصلة القراءة' ).click()
@@ -63,7 +63,7 @@ describe( 'Testing Arabic version', () => {
 	it( 'Check Span محمد_عبد_الوهاب ', () => {
 		cy.get( 'body > div.container > div.content > p:nth-child(2) > span' ).should( 'have.text', 'محمد_عبد_الوهاب' ).click( { force: true } )
 		cy.getPopupCard().should( 'be.visible' )
-		cy.getCardImage().should( 'be.visible' )
+		cy.get('body > div.wp-popup > div > div.wikipediapreview-header > div.wikipediapreview-header-image').should( 'be.visible' )
 		cy.getCardTitleArabic().should( 'be.visible' )
 		cy.getCardCloseButton().should( 'be.visible' )
 		cy.getCardFooter().should( 'have.text', 'مواصلة القراءة' ).click()

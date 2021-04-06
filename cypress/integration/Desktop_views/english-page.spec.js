@@ -4,7 +4,7 @@
 describe('Testing English Version', () => {
 
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/english.html').url().should('include', '/english.html')  
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/english.html').url().should('include', '/english.html')  
     })
 
     it('Check Header', () => {

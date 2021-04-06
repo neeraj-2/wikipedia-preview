@@ -7,7 +7,7 @@ describe('Testing English version for Mobileview', () => {
         cy.viewport('iphone-6')
     })
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/english.html').url().should('include', '/english.html')  
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/english.html').url().should('include', '/english.html')  
     })
 
     it('Check Header', () => {
