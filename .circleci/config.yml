@@ -1,98 +1,24 @@
 version: 2.1
-
-jobs:
-  build:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - checkout
-      - run: pwd
-      - run: ls
-      - restore_cache:
-          keys:
-            - 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
-            - 'v2-deps-{{ .Branch }}-'
-            - v2-deps-
-      - run: npm ci
-      - save_cache:
-          key: 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
-          paths:
-            - ~/.npm
-            - ~/.cache
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache
-            - tmp
-  test1Login:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests on electron
-          command: npm run cy:run
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test2CMSPage:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests on Chrome
-          command: npm run cy:run:chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test3GeneralSettings:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests on firefox
-          command: npm run cy:run:firefox
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-
+orbs:
+  cypress: cypress-io/cypress@1
 workflows:
-  version: 2
-  build_and_test:
+  build:
     jobs:
-      - build
-      - test1Login:
+      - cypress/install
+      - cypress/run:
+          name: firefox
           requires:
-            - build
-      - test2CMSPage:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: npx cy:run:firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: chrome
           requires:
-            - build
-      - test3GeneralSettings:
-          requires:
-            - build
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: npx cy:run:chrome
+          group: chrome
+          browser: chrome
