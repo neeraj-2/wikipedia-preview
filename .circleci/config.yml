@@ -45,7 +45,7 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
-  test:
+  test_on_chrome:
     working_directory: ~/tmp
     docker:
       - image: 'cypress/base:10'
@@ -63,7 +63,7 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
-  test:
+  test_on_firefox:
     working_directory: ~/tmp
     docker:
       - image: 'cypress/base:10'
