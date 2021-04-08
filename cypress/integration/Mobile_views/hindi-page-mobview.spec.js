@@ -55,7 +55,7 @@ describe('Testing Hindi version for Mobileview', () => {
         cy.getCardImage().should('be.visible')
         cy.getCardTitleHindi().should('be.visible')
         cy.getCardCloseButton().should('be.visible')
-        cy.get('body > div.wp-popup > div > div.wikipediapreview-body > div > div > div').should('be.visible')
+        cy.get('.wikipediapreview-gallery-image').should('be.visible')
         cy.getReadMore().should('be.visible').should('have.text', 'विकिपीडिया पर अधिक पढ़ें').click()  
         cy.getCardCloseButton().click()
         cy.getPopupCard().should('not.be.visible')
