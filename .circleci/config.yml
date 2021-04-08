@@ -10,7 +10,7 @@ workflows:
           requires:
             - cypress/install 
           executor: cypress/browsers-chrome73-ff68
-          command: npx run cy:run:firefox
+          command: npm run cy:run:firefox
           group: firefox
           browser: firefox
 
@@ -19,6 +19,6 @@ workflows:
           requires:
             - cypress/install
           executor: cypress/browsers-chrome73-ff68
-          command: npx run cy:run:chrome
+          command: npm run cy:run:chrome
           group: chrome
           browser: chrome
