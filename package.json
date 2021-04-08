@@ -15,7 +15,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "wba": "npm run build:prod && npx webpack-bundle-analyzer dist/stats.json",
-    "cypress:run": "node_modules/.bin/cypress run"
+    "cypress:run": "node_modules/.bin/cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
+    
   },
   "author": "Wikimedia Foundation",
   "license": "MIT",
