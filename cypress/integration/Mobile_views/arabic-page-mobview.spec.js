@@ -35,7 +35,7 @@ describe('Testing Arabic version for MobileView', () => {
     })
 
     it('Check Span القاهرة', () => {
-        cy.get('body > div.container > div.content > p:nth-child(1) > span:nth-child(1)').should('have.text','القاهرة').click()
+        cy.get('body > div.container > div.content > p:nth-child(1) > span:nth-child(1)').should('have.text','القاهرة').click({force:true})
         cy.getPopupCard().should('be.visible')
         cy.get('body > div.wp-popup > div > div.wikipediapreview-header > div.wikipediapreview-header-image').should('be.visible')
         cy.getCardTitleArabic().should('be.visible')
