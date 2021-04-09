@@ -45,17 +45,17 @@ describe('Testing Hindi version', () => {
         cy.getPopupCard().should('not.be.visible')
     })
 
-    it('Check Span हुमांयू ', () => {
-        cy.getSpanTwo().should('have.text','हुमांयू').click()
-        cy.getPopupCard().should('be.visible')
-        cy.getCardImage().should('be.visible')
-        cy.getCardTitleHindi().should('be.visible')
-        cy.getCardCloseButton().should('be.visible')
-        cy.get('.wikipediapreview-gallery-image').should('be.visible')
-        cy.getReadMore().should('be.visible').should('have.text', 'विकिपीडिया पर अधिक पढ़ें').click()  
-        cy.getCardCloseButton().click()
-        cy.getPopupCard().should('not.be.visible')
-    })
+    // it('Check Span हुमांयू ', () => {
+    //     cy.getSpanTwo().should('have.text','हुमांयू').click()
+    //     cy.getPopupCard().should('be.visible')
+    //     cy.getCardImage().should('be.visible')
+    //     cy.getCardTitleHindi().should('be.visible')
+    //     cy.getCardCloseButton().should('be.visible')
+    //     cy.get('.wikipediapreview-gallery-image').should('be.visible')
+    //     cy.getReadMore().should('be.visible').should('have.text', 'विकिपीडिया पर अधिक पढ़ें').click()  
+    //     cy.getCardCloseButton().click()
+    //     cy.getPopupCard().should('not.be.visible')
+    // })
 
     it('Check Span अंकगणितीय', () => {
         cy.getSpanFour().should('have.text','अंकगणितीय').click()
