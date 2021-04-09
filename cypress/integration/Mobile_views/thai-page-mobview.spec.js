@@ -45,7 +45,7 @@ describe('Testing Thai version for Mobileview', () => {
         cy.getCardImageTwo().should('be.visible')
         cy.getCardFooter().should('have.text', 'อ่านต่อ').click({force:true})
         cy.getReadMore().should('be.visible').should('have.text', 'อ่านเพิ่มเติมบนวิกิพีเดีย').click()  
-        cy.getCardCloseButton().click()
+        cy.getCardCloseButton().click({force:true})
         cy.getPopupCard().should('not.be.visible')
     })
 
@@ -85,5 +85,4 @@ describe('Testing Thai version for Mobileview', () => {
         cy.getArticleInfo().should('be.visible').click()
         cy.getViewSource().should('be.visible').click()
     })
-
 }) 
