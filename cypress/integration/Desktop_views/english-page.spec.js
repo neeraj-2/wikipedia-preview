@@ -61,7 +61,7 @@ describe('Testing English Version', () => {
     })
 
     it('Check Span Chinko Project', () => { 
-        cy.getSpanThree().should('have.text','Chinko Project').click()
+        cy.getSpanThree().should('have.text','Chinko Project').click({force:true})
         cy.getPopupCard().should('be.visible')
         cy.getCardImage().should('be.visible')
         cy.getCardTitleEnglish().should('be.visible')
