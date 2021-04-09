@@ -8,7 +8,7 @@ describe('Testing Bahasa Indonesia version for Mobileview', () => {
     })
 
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/bahasaIndonesia.html').url().should('include', '/bahasaIndonesia.html')
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/bahasaIndonesia.html').url().should('include', '/bahasaIndonesia.html')
     })
 
     it('Check Header', () => {

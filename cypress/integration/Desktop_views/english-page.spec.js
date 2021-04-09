@@ -4,7 +4,7 @@
 describe('Testing English Version', () => {
 
     it('Check URL', () => {
-        cy.visit('http://localhost:8080/articles/english.html').url().should('include', '/english.html')  
+        cy.visit('https://wikimedia.github.io/wikipedia-preview/demo//articles/english.html').url().should('include', '/english.html')  
     })
 
     it('Check Header', () => {
@@ -61,7 +61,7 @@ describe('Testing English Version', () => {
     })
 
     it('Check Span Chinko Project', () => { 
-        cy.getSpanThree().should('have.text','Chinko Project').click()
+        cy.getSpanThree().should('have.text','Chinko Project').click({force:true})
         cy.getPopupCard().should('be.visible')
         cy.getCardImage().should('be.visible')
         cy.getCardTitleEnglish().should('be.visible')

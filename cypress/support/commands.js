@@ -122,11 +122,3 @@ Cypress.Commands.add('getArticleInfo',()=>{
 Cypress.Commands.add('getViewSource',()=>{
     return cy.get('body > div.footer > p > a:nth-child(5)')
 })
-
-
-
-
-
-
-
-

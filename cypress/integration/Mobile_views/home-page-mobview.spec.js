@@ -8,7 +8,7 @@ describe( 'Testing HomePage for Mobileview', () => {
 	} )
 
 	it( 'Check URL', () => {
-		cy.visit( 'http://localhost:8080/index.html' ).url().should( 'include', '/index.html' )
+		cy.visit( 'https://wikimedia.github.io/wikipedia-preview/demo//index.html' ).url().should( 'include', '/index.html' )
 	} )
 
 	it( 'Check Header', () => {
