@@ -26,8 +26,31 @@ jobs:
           paths:
             - .cache
             - tmp
+  test1:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration
+      - run:
+          name: Running cypress tests 1
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/arabic-page.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
+      - test1:
+          requires:
+            - build
