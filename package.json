@@ -14,7 +14,11 @@
     "dev": "webpack-dev-server --mode development --host=0.0.0.0 --disable-host-check",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "wba": "npm run build:prod && npx webpack-bundle-analyzer dist/stats.json"
+    "wba": "npm run build:prod && npx webpack-bundle-analyzer dist/stats.json",
+    "cy:run": "node_modules/.bin/cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
+    
   },
   "author": "Wikimedia Foundation",
   "license": "MIT",
@@ -31,6 +35,7 @@
     "canvas": "^2.6.1",
     "compression-webpack-plugin": "^4.0.1",
     "css-loader": "^3.6.0",
+    "cypress": "^6.8.0",
     "eslint": "^7.8.1",
     "eslint-config-wikimedia": "^0.16.2",
     "eslint-loader": "^4.0.2",
@@ -56,6 +61,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "dompurify": "^2.1.0"
+    "dompurify": "^2.1.0",
+    "eslint-plugin-cypress": "^2.11.2"
   }
 }
