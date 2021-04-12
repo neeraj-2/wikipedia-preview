@@ -36,12 +36,152 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration
+      - run: ls -la cypress/integration/Desktop_views/
       - run:
           name: Running cypress tests 1
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/arabic-page.spec.js
+            cypress/integration/Desktop_views/arabic-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test2:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 2
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/bahasaindonesia-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test3:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 3
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/english-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test4:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 4
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/french-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test5:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 5
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/hindi-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test6:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 6
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/home-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test7:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 7
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/spanish-page-mobview.spec.js
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+  test8:
+    working_directory: ~/tmp
+    docker:
+      - image: 'cypress/base:10'
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration/Desktop_views/
+      - run:
+          name: Running cypress tests 8
+          command: >-
+            $(npm bin)/cypress run --spec
+            cypress/integration/Desktop_views/thai-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -52,5 +192,50 @@ workflows:
     jobs:
       - build
       - test1:
+          requires:
+            - build
+      - test2:
+          requires:
+            - build
+      - test3:
+          requires:
+            - build
+      - test4:
+          requires:
+            - build
+      - test5:
+          requires:
+            - build
+      - test6:
+          requires:
+            - build
+      - test7:
+          requires:
+            - build
+      - test8:
+          requires:
+            - build
+      - test1:
+          requires:
+            - build
+      - test2:
+          requires:
+            - build
+      - test3:
+          requires:
+            - build
+      - test4:
+          requires:
+            - build
+      - test5:
+          requires:
+            - build
+      - test6:
+          requires:
+            - build
+      - test7:
+          requires:
+            - build
+      - test8:
           requires:
             - build
