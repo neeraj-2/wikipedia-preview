@@ -39,6 +39,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 1 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -47,6 +48,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 1 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -70,6 +72,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 2 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -78,6 +81,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 2 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -101,6 +105,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 3 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -110,6 +115,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 3 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -134,6 +140,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 4 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -142,6 +149,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 4 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -165,6 +173,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 5 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -173,6 +182,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 5 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -196,6 +206,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 6 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -204,6 +215,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 6 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -227,6 +239,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 7 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -235,6 +248,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 7 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -258,6 +272,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 8 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -266,6 +281,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 8 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -289,6 +305,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 9 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -297,6 +314,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 9 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -320,6 +338,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 10 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
@@ -328,6 +347,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 10 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
@@ -351,6 +371,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 11 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -359,6 +380,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 11 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -382,6 +404,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 12 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
@@ -390,6 +413,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 12 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
@@ -413,6 +437,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 13 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -421,6 +446,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 13 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -444,6 +470,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 14 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -452,6 +479,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 14 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -475,6 +503,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 15 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -483,6 +512,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 15 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
@@ -506,6 +536,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests 16 firefox
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
@@ -514,6 +545,7 @@ jobs:
           browser: firefox
       - run:
           name: Running cypress tests 16 chrome
+          requires: cypress/install
           executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
