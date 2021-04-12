@@ -38,15 +38,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 1
+          name: Running cypress tests 1 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/arabic-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 1
+          name: Running cypress tests 1 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/arabic-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -63,15 +69,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 2
+          name: Running cypress tests 2 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/arabic-page.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 2
+          name: Running cypress tests 2 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/arabic-page.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -88,17 +100,23 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 3
+          name: Running cypress tests 3 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/bahasaindonesia-page-mobview.spec.js --browser
             chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 3
+          name: Running cypress tests 3 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/bahasaindonesia-page-mobview.spec.js --browser
             firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -115,15 +133,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 4
+          name: Running cypress tests 4 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/bahasaindonesia-page.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 4
+          name: Running cypress tests 4 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/bahasaindonesia-page.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -140,15 +164,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 5
+          name: Running cypress tests 5 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/english-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 5
+          name: Running cypress tests 5 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/english-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -165,15 +195,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 6
+          name: Running cypress tests 6 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/english-page.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 6
+          name: Running cypress tests 6 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/english-page.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -190,15 +226,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 7
+          name: Running cypress tests 7 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/french-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 7
+          name: Running cypress tests 7 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/french-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -215,15 +257,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 8
+          name: Running cypress tests 8 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/french-page.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 8
+          name: Running cypress tests 8 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/french-page.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -240,15 +288,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 9
+          name: Running cypress tests 9 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/hindi-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 9
+          name: Running cypress tests 9 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/hindi-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -265,15 +319,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 10
+          name: Running cypress tests 10 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
             --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 10
+          name: Running cypress tests 10 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
             --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -290,15 +350,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 11
+          name: Running cypress tests 11 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/home-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 11
+          name: Running cypress tests 11 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/home-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -315,15 +381,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 12
+          name: Running cypress tests 12 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
             --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 12
+          name: Running cypress tests 12 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
             --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -340,15 +412,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 13
+          name: Running cypress tests 13 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/spanish-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 13
+          name: Running cypress tests 13 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/spanish-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -365,15 +443,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 14
+          name: Running cypress tests 14 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/spanish-page.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 14
+          name: Running cypress tests 14 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/spanish-page.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -390,15 +474,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 15
+          name: Running cypress tests 15 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/thai-page-mobview.spec.js --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 15
+          name: Running cypress tests 15 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec
             cypress/integration/thai-page-mobview.spec.js --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -415,15 +505,21 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running cypress tests 16
+          name: Running cypress tests 16 firefox
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
             --browser chrome
+          group: firefox
+          browser: firefox
       - run:
-          name: Running cypress tests 16
+          name: Running cypress tests 16 chrome
+          executor: cypress/browsers-chrome73-ff68
           command: >-
             $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
             --browser firefox
+          group: chrome
+          browser: chrome
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
