@@ -1,611 +1,380 @@
-version: 2
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
 jobs:
   build:
-    working_directory: ~/tmp
     docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
+      - image: circleci/node:12.0-browsers
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e3:56:4b:3d:1c:58:a6:f9:7d:24:0a:90:01:77:aa:fb"
       - checkout
-      - run: pwd
-      - run: ls
-      - restore_cache:
-          keys:
-            - 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
-            - 'v2-deps-{{ .Branch }}-'
-            - v2-deps-
-      - run: npm ci
-      - save_cache:
-          key: 'v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}'
-          paths:
-            - ~/.npm
-            - ~/.cache
+      - run:
+          name: Prepare
+          command: npm install
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Unit Test (with coverage)
+          command: npm run coverage
+      - run:
+          name: Build Storybook
+          command: npm run build-storybook
+      - run:
+          name: Prepare demo
+          command: ./scripts/demo.sh
       - persist_to_workspace:
-          root: ~/
+          root: .
           paths:
-            - .cache
-            - tmp
-  test1:
-    working_directory: ~/tmp
+            - ./demo
+            - ./storybook-static
+  update-demos:
     docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
+      - image: node:8.10.0
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "e3:56:4b:3d:1c:58:a6:f9:7d:24:0a:90:01:77:aa:fb"
+      - checkout
       - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
+          at: .
       - run:
-          name: Running cypress tests 1 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/arabic-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
+          name: Prepare
+          command: |
+            npm install -g --silent gh-pages
+            git config user.email "ci-build@wikimedia.org"
+            git config user.name "ci-build"
       - run:
-          name: Running cypress tests 1 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/arabic-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test2:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 2 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/arabic-page.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 2 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/arabic-page.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test3:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 3 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/bahasaindonesia-page-mobview.spec.js --browser
-            chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 3 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/bahasaindonesia-page-mobview.spec.js --browser
-            firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test4:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 4 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/bahasaindonesia-page.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 4 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/bahasaindonesia-page.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test5:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 5 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/english-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 5 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/english-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test6:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 6 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/english-page.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 6 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/english-page.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test7:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 7 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/french-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 7 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/french-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test8:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 8 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/french-page.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 8 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/french-page.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test9:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 9 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/hindi-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 9 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/hindi-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test10:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 10 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
-            --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 10 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/hindi-page.spec.js
-            --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test11:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 11 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/home-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 11 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/home-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test12:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 12 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
-            --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 12 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/home-page.spec.js
-            --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test13:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 13 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/spanish-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 13 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/spanish-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test14:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 14 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/spanish-page.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 14 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/spanish-page.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test15:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 15 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/thai-page-mobview.spec.js --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 15 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec
-            cypress/integration/thai-page-mobview.spec.js --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-  test16:
-    working_directory: ~/tmp
-    docker:
-      - image: 'cypress/base:10'
-        environment:
-          TERM: xterm
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running cypress tests 16 firefox
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
-            --browser chrome
-          group: firefox
-          browser: firefox
-      - run:
-          name: Running cypress tests 16 chrome
-          requires: - cypress/install
-          executor: cypress/browsers-chrome73-ff68
-          command: >-
-            $(npm bin)/cypress run --spec cypress/integration/thai-page.spec.js
-            --browser firefox
-          group: chrome
-          browser: chrome
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
+          name: Deploy demo
+          command: |
+            gh-pages --dist . -m "Update demo [ci skip]"
 workflows:
-  version: 2
-  build_and_test:
+  build:
     jobs:
+      - cypress/install
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/arabic-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/arabic-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/arabic-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/arabic-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/bahasaindonesia-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/bahasaindonesia-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/bahasaindonesia-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/bahasaindonesia-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/english-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/english-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/english-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/english-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/french-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/french-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/french-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/french-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/hindi-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/hindi-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/hindi-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/hindi-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/home-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/home-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/home-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/home-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/spanish-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/spanish-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/spanish-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/spanish-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/thai-page-mobview.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/thai-page-mobview.spec.js --browser chrome
+          group: chrome
+          browser: chrome
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install 
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/thai-page.spec.js --browser firefox
+          group: firefox
+          browser: firefox
+
+      - cypress/run:
+          name: Test
+          requires:
+            - cypress/install
+          executor: cypress/browsers-chrome73-ff68
+          command: $(npm bin)/cypress run --spec
+            cypress/integration/thai-page.spec.js --browser chrome
+          group: chrome
+          browser: chrome
       - build
-      - test1:
+      - update-demos:
           requires:
             - build
-      - test2:
-          requires:
-            - build
-      - test3:
-          requires:
-            - build
-      - test4:
-          requires:
-            - build
-      - test5:
-          requires:
-            - build
-      - test6:
-          requires:
-            - build
-      - test7:
-          requires:
-            - build
-      - test8:
-          requires:
-            - build
-      - test9:
-          requires:
-            - build
-      - test10:
-          requires:
-            - build
-      - test11:
-          requires:
-            - build
-      - test12:
-          requires:
-            - build
-      - test13:
-          requires:
-            - build
-      - test14:
-          requires:
-            - build
-      - test15:
-          requires:
-            - build
-      - test16:
-          requires:
-            - build
+          filters:
+            branches:
+              only: main
