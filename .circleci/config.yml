@@ -36,12 +36,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 1
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/arabic-page-mobview.spec.js
+            cypress/integration/Mobile_views/arabic-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -56,12 +56,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 2
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/bahasaindonesia-page-mobview.spec.js
+            cypress/integration/Mobile_views/bahasaindonesia-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -76,12 +76,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 3
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/english-page-mobview.spec.js
+            cypress/integration/Mobile_views/english-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -96,12 +96,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 4
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/french-page-mobview.spec.js
+            cypress/integration/Mobile_views/french-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -116,12 +116,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 5
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/hindi-page-mobview.spec.js
+            cypress/integration/Mobile_views/hindi-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -136,12 +136,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 6
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/home-page-mobview.spec.js
+            cypress/integration/Mobile_views/home-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -156,12 +156,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 7
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/spanish-page-mobview.spec.js
+            cypress/integration/Mobile_views/spanish-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
@@ -176,12 +176,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
-      - run: ls -la cypress/integration/Desktop_views/
+      - run: ls -la cypress/integration/Mobile_views/
       - run:
           name: Running cypress tests 8
           command: >-
             $(npm bin)/cypress run --spec
-            cypress/integration/Desktop_views/thai-page-mobview.spec.js
+            cypress/integration/Mobile_views/thai-page-mobview.spec.js
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
